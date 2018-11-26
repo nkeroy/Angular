@@ -1,0 +1,748 @@
+Javascript 1.5 /ES5/ECMAScript
+ 1997 javascript was submitted to ECMA(European Computer Manufacturers Association Script) for standardization
+ ECMAScript
+
+
+ES6 - 2015 - javascript 2.0
+  let, const and var keyword
+  arrow functions
+  tempalte strings
+  object destructuring
+  classes and objects
+  spread, rest operator
+
+ES5 object based       Inheritance - prototype based
+ES6 Object oriented    Inhertiance - class based
+
+TypeScript:
+ superset of ES6
+ types
+ decorators
+ generic
+
+typescript can not be executed on browser, ultimately all typescript code is converted to javascript
+
+Angular 1.x 2010 javascript based
+Angular 2 2016 typescript
+
+Angular Framework is destributed in the form of libraries
+@angular/core 2.3.0
+@angular/http 2.3.0
+@angular/forms 2.3.0
+@angular/router
+ 3.3.0
+
+
+
+
+Angular 4 - March 23, 2017
+To align all diff libraries
+
+Angular 5 - November 1, 2017
+
+Angular 6 - May 4, 2018
+
+Angular 7 - October 18, 2018
+
+
+Typescript online editor :
+http://www.typescriptlang.org/
+Playground
+
+
+var a=100;
+
+if(a>=50){
+ var b=10; //global scope
+ console.log('inside if block b'+b)
+ console.log('value of a = '+a)
+}
+console.log('outside if block b'+b)//10
+
+ex:
+var a=100;
+if(a>=50){
+ let b=10; //block scope
+ console.log('inside if block b'+b)
+ console.log('value of a = '+a)
+}
+console.log('outside if block b'+b)//compile time error
+
+
+
+
+let keyword
+-----------
+  
+  -create block scoped variable
+  -cannot redeclared - can be updated
+
+const keyword
+-------------
+ -block scoped variable
+ -cannot be redeclared - cannot be updated
+
+var keyword
+-----------
+ -function scoped/global scoped
+ -can be redeclared / can be updated
+
+
+
+
+
+Arrow function:
+---------------
+ -> it is most abreviated way of creating a function
+  
+  function sayhello(){
+    //
+  }
+
+In Javascript functions are first class object therefore
+var sayhello = function(name){
+  console.log('hello'+name);
+}
+
+you can store the reference of a function in a variable
+
+In ES6 there is better way to write function
+var sayhello =(name)=>{
+ console.log('hello'+name);
+}
+
+No need to use paranethesis if only one parameter and 
+if there is only one statement, no need to use curly bracket.
+var sayhello =name=>  console.log('hello'+name);
+
+var arithAdd =(a,b) => {
+   return a+b;
+}
+
+or
+var arithAdd =(a,b) => a+b;
+}
+  
+
+example(typescriptlang.org)
+---------------------------
+function Person(fname,lname)
+{
+   this.fname=fname;
+   this.lname=lname;
+}
+
+let p1 = new Person('Sanjay','Degaonkar')
+console.log(p1.fname+' '+p1.lname)
+
+
+//2
+function Person(fname,lname)
+{
+   this.fname=fname;
+   this.lname=lname;
+
+   this.sayHello = function(){
+      console.log('hello '+this.fname+' '+this.lname)
+   }
+}
+
+let p1 = new Person('Sanjay','Degaonkar')
+p1.sayHello();
+
+//3
+function Person(fname,lname)
+{
+   this.fname=fname;
+   this.lname=lname;
+
+   this.sayHello = function(){
+
+      setTimeout(function(){
+      console.log('hello '+this.fname+' '+this.lname)
+   },6000)
+  }
+}
+let p1 = new Person('Sanjay','Degaonkar')
+p1.sayHello();
+
+
+o/p => hello undefined undefined
+bcaz function has new scope each time you call and 'this' pointing to window object
+//4
+function Person(fname,lname)
+{
+   this.fname=fname;
+   this.lname=lname;
+
+   this.sayHello = function(){
+
+      setTimeout(function(){
+      console.log(this); //printing this object
+      console.log('hello '+this.fname+' '+this.lname)
+   },6000)
+  }
+}
+let p1 = new Person('Sanjay','Degaonkar')
+p1.sayHello();
+
+
+//5
+//one way to resolve this issue
+
+function Person(fname,lname)
+{
+   this.fname=fname;
+   this.lname=lname;
+
+   this.sayHello = function(){
+
+      var that = this;
+
+      setTimeout(function(){
+      
+      console.log('hello '+that.fname+' '+that.lname)
+   },6000)
+  }
+}
+
+let p1 = new Person('Sanjay','Degaonkar')
+p1.sayHello();
+
+//5
+//another way to resolve using arrow function
+
+function Person(fname,lname)
+{
+   this.fname=fname;
+   this.lname=lname;
+
+   this.sayHello = function(){
+
+      //var that = this;
+
+      setTimeout(()=>{
+      
+      console.log('hello '+this.fname+' '+this.lname)
+   },6000)
+  }
+}
+
+let p1 = new Person('Sanjay','Degaonkar')
+p1.sayHello();
+
+run - press f12
+
+
+
+Template Literals
+------------------
+console.log('hello'+this.fname+' '+this.lname)
+console.log(`hello  ${this.fname}  ${this.lname}`)
+
+back tick sign with manual spacing
+
+example of Template Literals
+----------------------------
+function Person(fname,lname)
+{
+   this.fname=fname;
+   this.lname=lname;
+
+   this.sayHello = function(){
+
+      //var that = this;
+
+      setTimeout(()=>{
+      
+          console.log('hello' + this.fname + ' ' + this.lname)
+      console.log(`hello  ${this.fname}  ${this.lname}`)
+   },6000)
+  }
+}
+
+let p1 = new Person('Sanjay','Degaonkar')
+p1.sayHello();
+
+
+
+ex.
+
+
+let person ={
+   fname:'Sanjay',
+   lname:'Degaonkar',
+   company: 'Capgemini',
+   location: 'Pune',
+    mobile:'9309756660'
+    email: 'sanjay.degaonkar@capgemini.com'
+}
+
+function showPersonData(person){
+   return "Person Data: "+"\n"+
+            "First name: "+person.fname+"\n"+
+            "Last name: "+person.fname+"\n"+
+            "Location: "+person.location+"\n"+
+
+
+     
+}
+
+const res = showPersonData(person)
+console.log(res)
+
+
+
+
+
+
+//2
+let person ={
+   fname:'Sanjay',
+   lname:'Degaonkar',
+   company: 'Capgemini',
+   location: 'Pune',
+    mobile:'9309756660',
+    email: 'sanjay.degaonkar@capgemini.com'
+}
+
+function showPersonData(person){
+   return `Person Data: 
+            First name: ${person.fname}
+            Last name: ${person.lname}
+            Location: ${person.location}
+	    Email:${person.email}`
+
+     
+}
+
+const res = showPersonData(person)
+console.log(res)
+
+
+
+
+
+
+
+
+Array spread operator
+---------------------
+
+const array1=[12,43,23,54]
+
+console.log('array1 ='+array1)
+
+//2
+//want to copy array1 plus some new values in array2
+const array1=[12,43,23,54]
+const array2=[...array1,88,99,44]  //array spread operator
+
+console.log('array1 ='+array1)
+console.log('array2 ='+array2)
+
+
+Object spread operator
+----------------------
+let person ={
+   fname:'Sanjay',
+   lname:'Degaonkar',
+   company: 'Capgemini',
+   location: 'Pune',
+    mobile:'9309756660',
+    email: 'sanjay.degaonkar@capgemini.com'
+}
+
+let emp = {
+  ...person,
+   company:'Capgemini Singapore',
+   mobile:'232345', //modifying existing property
+   account : 'ADM'   //adding new property
+}
+
+console.log(emp)
+
+
+//just observe equivalent javascript code
+
+
+
+
+Rest operator
+-------------
+ you can pass variable number of parameters to a function
+
+ ex.
+      function arithAdd(...nums){
+       for (let i = 0; i < nums.length; i++)
+       {
+           console.log(nums[i]);
+       }
+   }
+
+   arithAdd(10,20,30);
+   arithAdd(1,2,3);
+
+if you want to write multiple parameters rest should be the last one
+ex.
+   function arithAdd(a,b,...nums){
+     
+   }
+
+   arithAdd(10,20,30,40,50);//a=10 b=20 nums=30,40,50
+   arithAdd(1,2,3);
+
+until you specify type, you can pass any type of data
+
+
+
+Typescript features
+-------------------
+-------------------
+1.types
+
+function arithAdd(a,b){
+  return a+b;
+}
+console.log(arithAdd(10,20))
+console.log(arithAdd('first','second')) // not restricting to numbers
+
+no restriction on parameters or return type, any type we can have
+
+let message='helloworld'  //implicit string type inference in typescript
+
+move the mouse pointer on message(typescriptlang) => string
+
+message = 2 //compilation error 
+
+explicit type:
+let message:string='helloworld'
+
+ex:
+let message:string='helloworld'
+let numA: number;
+numA=23;
+numA='Welcome' //compilation error
+message=23 //compilation error
+
+
+
+let age=30 //implicit
+let age:number = 23  //explicit
+let result=false; //implicit  infered as boolean
+let result:boolean = false  //explict
+
+
+Object type and type inference
+------------------------------
+let person={
+   fname:"Sanjay",
+   lname:"Degaonkar"
+}
+//object with two properties string,string
+
+let course={
+   cname:'Angular',
+   duration:'5 days'
+}
+person = course; //compilation error
+
+let employee={
+   fname:"Sanjay",
+   lname:"Degaonkar"
+}
+
+person=employee //valid 
+type of object is identified by structure of object 
+
+
+Creating a new object type
+--------------------------
+1.using type keyword
+  type Person={fname:string,lname:string}
+  let p1:Person;
+
+  p1={
+    fname:'Sanjay',
+    lname:'Degaonkar' //if you miss any property, compilation error
+  }
+
+ex.
+type Person={fname:string,lname:string,age?:number}
+  let p1:Person;
+
+  p1={
+    fname:'Sanjay',
+    lname:'Degaonkar', 
+    //age is optional now as we put ?
+  }
+
+
+2. using interface
+   
+   interface Person{
+      fname:string    // ;optional?
+      lname:string
+      age?:number
+   }
+
+   let p1:Person;
+
+   p1={
+    fname:'Sanjay',
+    lname:'Degaonkar', 
+    //age is optional now as we put ?
+  }
+
+
+function type and inference
+---------------------------
+
+function arithAdd(a,b){
+
+}
+
+function arithAdd(a:number,b:number):number{//it is typesafe now as type..
+  return 7;
+
+}
+
+
+// :number - compulsory return a number
+
+
+
+var sayHello = function(name){
+
+}  or
+var sayHello =(name:string) => 'Hello '+name
+console.log(sayHello("Sachin"))
+
+observe the value of sayhello in editor - string
+
+
+creating function type
+----------------------
+1. using type keyword
+    type saySomething = (name?:string)=>string | null
+
+    let sayHello:saySomething = (name:string) =>'hello' +name;
+console.log(sayHello(null))
+
+2.using interface
+   interface saySomething{
+     (name?:string)=> string
+   }
+
+
+
+array
+-----
+let names =['Sachin','Vishal','Amol']
+
+let names1:string[] =['Sachin','Vishal','Amol']
+
+
+tuple
+-----
+
+let tuple123=[1,'Sachin']  // type will be infered as number,string
+
+ex.
+let tuple123=[1,'Sachin']  // type will be infered as number,string
+
+type p=[string,number]
+
+let player1:p = ['Sachin', '1'];//compilaton error
+console.log(player1)
+Enum
+----
+  enum PlayerPosition{
+      Guard,        //by default 0
+      Forward,
+      Center
+}
+
+//just observe javascript code
+  
+type playerTuple = [string,number]
+let Player1:playerTuple = ['Swapnil',PlayerPosition.Guard]
+console.log(Player1)
+
+
+
+
+
+
+
+
+any
+---
+let myVar;  //type is any
+
+myVar = 10; //still type is any
+
+let myVar=10; //type is number
+
+in tsconfig you can add property:
+noImplicitAny:true
+
+
+void 
+----
+not returning any value
+var sayHello = (name:string):void =>{
+
+}
+
+never
+-----
+function never completes
+  function buildmessage(message:string):never{
+     throw new Error('some error')
+
+
+-----------------------------------------
+
+
+
+
+
+object oriented programming in typescript
+-----------------------------------------
+create a class in typescript
+----------------------------
+
+class Test{
+  name:string;
+  editor:number;
+  creationYear:number;
+
+}
+
+ex.
+enum Editor{
+   MARVEL,
+   DC_COMICS
+}
+
+class Test{
+ public name:string;
+ private editor:Editor; //type may be a enum, function, another class
+ protected creationYear:number;
+
+  constructor(name:string,editor:Editor,creationYear:number){
+	this.name=name;
+        this.editor=editor;
+        this.creationYear = creationYear;
+  }
+
+}
+
+use constructor() to initialize values to the data members.
+
+or
+--
+enum Editor{
+   MARVEL,
+   DC_COMICS
+}
+class Test{
+ 
+
+  constructor(public name:string,public editor:Editor=Editor.MARVEL,public creationYear?:number){
+	//this.name=name;  //no need to initialize
+        //this.editor=editor;//automatic initialization
+        //this.creationYear = creationYear;
+  }
+
+}
+
+let a=new Test('First');
+console.log(a);
+
+
+getter and setter
+-----------------
+enum Editor{
+   MARVEL,
+   DC_COMICS
+}
+
+class Test{
+ private _name:string;
+ private _editor:Editor; 
+ private _creationYear:number;
+
+  constructor(){
+  }
+
+  public get name(){  //getter
+   return this._name;
+ }
+
+  public set name(value:string) //setter
+  {
+    console.log("setter")
+    this._name= value;
+  }
+}
+
+
+let obj = new Test();
+obj.name="first"; //calling setter method
+console.log(obj.name);
+
+
+
+making property readonly
+------------------------
+readonly id:number;
+
+
+
+Access Modifiers
+----------------
+public
+private
+protected
+readonly
+
+
+static modifier
+---------------
+  static COUNT;
+
+abstract class
+--------------
+
+
+abstract class Shape{
+
+   //Properties
+   //Constructor
+   //getters/setters
+   //other methods
+   abstract createMessage():string;
+}
+
+class Rectangle extends Shape{
+   createMessage():string{
+      //statements
+   }
+}
+
+
+interface
+---------
+ interface Printable{
+    print():void; //abstract implicit
+ }
+
+ class Demo implements Printable{
+  print():void{
+  }
+ }
+
+
+
